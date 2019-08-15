@@ -76,7 +76,7 @@
         <section class="row mb-5">
             <div class="col-lg-4 offset-lg-4 bg-light rounded" id="caixaCadastro">
                 <h2 class="text-center">Cadastro de Usuário</h2>
-                <form action="#" class="p-2" id="frmCadastro">
+                <form action="#" class="p-2" id="formCadastro">
 
                     <div class="form-group">
                         <input type="text" name="nomeCompleto" id="nomeCompleto" class="form-control" placeholder="Nome completo" required minlength="5">
@@ -169,23 +169,41 @@
             //Envio dos dados do formulário de login
             $('#btnEntrar').click(function(e) {
                 let formLogin = document.querySelector("#formLogin");
-                if (formLogin.checkValidity()){
-                    e.preventDefault();//Não recarregar a página
+                if (formLogin.checkValidity()) {
+                    e.preventDefault(); //Não recarregar a página
                     $.ajax({
                         url: 'recebe.php',
                         method: 'post',
-                        data: $('#formLogin').serialize()+'&action=login',
-                        success: function(resposta){
+                        data: $('#formLogin').serialize() + '&action=login',
+                        success: function(resposta) {
                             $('#alerta').show();
                             $('#resultado').html(resposta);
-                            
+
                         }
                     });
                 }
             });
 
             //Formulário de Cadastro de usuário
-            $('#btnRegistrar').click(function(e) {});
+            $('#btnRegistrar').click(function(e) {
+                let formCadastro = document.querySelector("#formCadastro");
+                if (formCadastro.checkValidity()) {
+                    e.preventDefault();//Serm recarregar o formulário
+                    $.ajax({
+                        url: 'recebe.php',
+                        method: 'post',
+                        data: $('#formCadastro').serialize() + '&action=cadastro',
+                        success: function(resposta) {
+                            $('#alerta').show();
+                            $('#resultado').html(resposta);
+
+                        }
+                    });
+                }
+
+            });
+
+
 
             //Formulário para mudar de senha
             $('#btnEnviarEmail').click(function(e) {});
