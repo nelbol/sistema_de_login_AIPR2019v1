@@ -2,6 +2,9 @@
 Sistema de Login com registro de novo usuário e 
 recuperação de senha
 
+## aula05 - 23/08/2019
+criação do banco de dados e cadastro de usuário
+
 ## aula04 - 15/08/2019
 Recepção de dados de Back-end
 
