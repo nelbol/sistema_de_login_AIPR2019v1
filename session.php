@@ -1,22 +1,21 @@
 <?php
-//Iniciando a sessão
 session_start();
-//Conectando com o banco de dados
 require_once 'configDB.php';
-
-if(isset($_SESSION['nomeUsuario'])){
-    //echo "usuário logado";
-    $usuario = $_SESSION['nomeUsuario'];
-    $sql = $conecta->prepare("SELECT * FROM usuario WHERE nomeUsuario = ?");
-    $sql->bind_param("s", $usuario);
+if (isset($_SESSION['nomeUsuario'])) {
+    $nomeUsuário = $_SESSION["nomeUsuario"];
+    // echo "Nome do Usuário: $nomeUsuário";
+    $sql = $conexão->prepare("SELECT * FROM usuario WHERE nomeUsuario = ?");
+    $sql->bind_param("s", $nomeUsuário);
     $sql->execute();
     $resultado = $sql->get_result();
     $linha = $resultado->fetch_array(MYSQLI_ASSOC);
 
-    $nome = $linha['nome'];
-    $email = $linha['email'];
-    $dataCriacao = $linha['dataCriacao'];
-}else{
-    //Kick
-    header("location: index.php");
+    //$nomeUsuário = $linha["nomeUsuario"];
+    $nomeCompleto = $linha["nome"];
+    $email = $linha["email"];
+    $dataCriacao = $linha["dataCriacao"];
+    $urlAvatar = $linha['avatar'];
+} else {
+    header("location:index.php");
 }
+

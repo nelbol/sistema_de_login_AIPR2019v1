@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23-Ago-2019 às 14:14
+-- Tempo de geração: 06-Set-2019 às 16:47
 -- Versão do servidor: 10.3.16-MariaDB
 -- versão do PHP: 7.3.7
 
@@ -21,7 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `sistemadelogin`
 --
-DROP DATABASE IF EXISTS `sistemadelogin`;
 CREATE DATABASE IF NOT EXISTS `sistemadelogin` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
 USE `sistemadelogin`;
 
@@ -30,18 +29,15 @@ USE `sistemadelogin`;
 --
 -- Estrutura da tabela `usuario`
 --
--- Criação: 23-Ago-2019 às 17:09
--- Última actualização: 23-Ago-2019 às 17:09
---
 
-DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
   `idUsuario` int(10) UNSIGNED NOT NULL,
   `nome` varchar(100) COLLATE utf8mb4_bin NOT NULL,
   `nomeUsuario` varchar(100) COLLATE utf8mb4_bin NOT NULL,
   `email` varchar(100) COLLATE utf8mb4_bin NOT NULL,
   `senha` char(40) COLLATE utf8mb4_bin NOT NULL,
-  `dataCriacao` datetime NOT NULL
+  `dataCriacao` datetime NOT NULL,
+  `avatar` varchar(200) COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --

@@ -1,9 +1,9 @@
 <?php
-    
-    session_start();
-    if(isset($_SESSION['nomeUsuario']))
-        //Bloqueando usuários logados
-        header("location: profile.php");
+
+session_start();
+if (isset($_SESSION['nomeUsuario']))
+    //Bloqueando usuários logados
+    header("location: profile.php");
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +25,8 @@
         }
     </style>
 </head>
+
+
 
 <body class="bg-dark">
     <main class="container mt-4">
@@ -96,6 +98,10 @@
 
                     <div class="form-group">
                         <input type="email" name="emailUsuário" id="emailUsuário" class="form-control" placeholder="E-mail de Usuário" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="url" name="urlAvatar" id="urlAvatar" class="form-control" placeholder="URL para imagem do seu perfil" required>
                     </div>
 
                     <div class="form-group">
@@ -225,7 +231,7 @@
                         success: function(resposta) {
                             $('#alerta').show();
                             $('#resultado').html(resposta);
-                            if(resposta === "ok"){
+                            if (resposta === "ok") {
                                 //Redirecinamento
                                 window.location = "profile.php";
                             }

@@ -50,10 +50,19 @@ require_once 'session.php';
     </nav>
 
     <main class="container mt-4">
-        <h1 class="text-light">Perfil de usuário</h1>
-        <h2 class="text-light">Nome: <?= $nome ?></h2>
-        <h2 class="text-light">E-mail: <?= $email ?></h2>
-        <h2 class="text-light">Data de Cadastro: <?= $dataCriacao ?></h2>
+
+        <div class="row">
+            <div class="offset-lg-2 col-3">
+                <img src="<?= $urlAvatar ?>" alt="Foto de <?= $usuario ?>" height="200" width="200" />
+            </div>
+
+            <div class="col-7">
+                <h1 class="text-light">Perfil de usuário</h1>
+                <h2 class="text-light">Nome: <?= $nome ?></h2>
+                <h2 class="text-light">E-mail: <?= $email ?></h2>
+                <h2 class="text-light">Data de Cadastro: <?= $dataCriacao ?></h2>
+            </div>
+        </div>
     </main>
 
     <!-- Optional JavaScript -->
