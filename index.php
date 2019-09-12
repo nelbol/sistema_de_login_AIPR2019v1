@@ -2,7 +2,7 @@
 
 session_start();
 if (isset($_SESSION['nomeUsuario']))
-    //Bloqueando usuários logados
+    //Bloqueando usuários logados    
     header("location: profile.php");
 ?>
 
@@ -26,8 +26,6 @@ if (isset($_SESSION['nomeUsuario']))
     </style>
 </head>
 
-
-
 <body class="bg-dark">
     <main class="container mt-4">
         <!-- Conteúdo Principal -->
@@ -35,8 +33,7 @@ if (isset($_SESSION['nomeUsuario']))
         <section class="row">
             <div class="col-lg-4 offset-lg-4" id="alerta">
                 <div class="alert alert-success text-center">
-                    <strong id="resultado">
-                    </strong>
+                    <strong id="resultado"></strong>
                 </div>
             </div>
         </section>
@@ -48,16 +45,35 @@ if (isset($_SESSION['nomeUsuario']))
                 <form id="formLogin" class="p-2">
 
                     <div class="form-group">
-                        <input type="text" name="nomeUsuario" id="nomeUsuario" class="form-control" placeholder="Nome do usuário" minlength="5" required>
+                        <input type="text" name="nomeUsuario" 
+                        id="nomeUsuario" class="form-control" 
+                        placeholder="Nome do usuário" 
+                        minlength="5" required 
+                        value="<?php 
+                        if(isset($_COOKIE['nomeUsuario']))  
+                            echo $_COOKIE['nomeUsuario'];
+                        ?>">
                     </div>
 
                     <div class="form-group">
-                        <input type="password" name="senhaUsuario" id="senhaUsuario" class="form-control" placeholder="Senha" required minlength="6">
+                        <input type="password" name="senhaUsuario" 
+                        id="senhaUsuario" class="form-control" 
+                        placeholder="Senha" 
+                        required minlength="6"
+                        value="<?php 
+                        if(isset($_COOKIE['senhaUsuario']))  
+                            echo $_COOKIE['senhaUsuario'];
+                        ?>">
                     </div>
 
                     <div class="form-group mt-5">
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" name="lembrar" id="lembrar" class="custom-control-input">
+                            <input type="checkbox" 
+                            name="lembrar" id="lembrar" 
+                            class="custom-control-input" <?php 
+                            if(isset($_COOKIE['nomeUsuario']))  
+                                echo " checked";
+                            ?>>
 
                             <label for="lembrar" class="custom-control-label">
                                 Lembrar de mim.
@@ -101,7 +117,9 @@ if (isset($_SESSION['nomeUsuario']))
                     </div>
 
                     <div class="form-group">
-                        <input type="url" name="urlAvatar" id="urlAvatar" class="form-control" placeholder="URL para imagem do seu perfil" required>
+                        <input type="url" name="urlAvatar" id="urlAvatar" 
+                        class="form-control" 
+                        placeholder="URL para imagem do seu perfil" required>
                     </div>
 
                     <div class="form-group">
@@ -174,6 +192,8 @@ if (isset($_SESSION['nomeUsuario']))
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 
+
+
     <script>
         /* jQuery */
         $(function() {
@@ -192,7 +212,10 @@ if (isset($_SESSION['nomeUsuario']))
                         success: function(resposta) {
                             $('#alerta').show();
                             $('#resultado').html(resposta);
-
+                            if (resposta === "ok") {
+                                //Redirecinamento
+                                window.location = "profile.php";
+                            }
                         }
                     });
                 }
@@ -210,18 +233,14 @@ if (isset($_SESSION['nomeUsuario']))
                         success: function(resposta) {
                             $('#alerta').show();
                             $('#resultado').html(resposta);
-
                         }
                     });
                 }
-
             });
-
-
 
             //Formulário para mudar de senha
             $('#btnEnviarEmail').click(function(e) {
-                let formSenha = document.querySelector("#formSenha");
+                let formSenha = document.querySelector('#formSenha');
                 if (formSenha.checkValidity()) {
                     e.preventDefault(); //Não recarregar a página
                     $.ajax({
@@ -231,15 +250,13 @@ if (isset($_SESSION['nomeUsuario']))
                         success: function(resposta) {
                             $('#alerta').show();
                             $('#resultado').html(resposta);
-                            if (resposta === "ok") {
-                                //Redirecinamento
-                                window.location = "profile.php";
-                            }
-
                         }
                     });
                 }
             });
+
+
+
 
             //Trocar da Tela de Login para Recuperar Senha
             $("#btnEsqueci").click(function() {
@@ -265,13 +282,14 @@ if (isset($_SESSION['nomeUsuario']))
                 $("#caixaCadastro").hide(); //ocultar
             });
 
-            //jQuery Validate chão chão
+            //jQuery Validation chão chão
             $("#formLogin").validate();
             $("#formSenha").validate();
 
             $.validator.setDefaults({
                 success: "valid"
             });
+
 
             $("#formCadastro").validate({
                 rules: {
@@ -284,6 +302,11 @@ if (isset($_SESSION['nomeUsuario']))
 
         });
 
+        /*
+         * Translated default messages for the jQuery validation plugin.
+         * Locale: PT_BR
+         * https://gist.github.com/diegoprates/5047663
+         */
         jQuery.extend(jQuery.validator.messages, {
             required: "Este campo &eacute; requerido.",
             remote: "Por favor, corrija este campo.",

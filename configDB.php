@@ -1,5 +1,5 @@
-<?php 
-//confingDB.php5
+<?php
+//configDB.php 
 
 //Dados para escolha do DataBase (DB)
 $dbhost = "localhost";
