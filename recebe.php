@@ -29,10 +29,17 @@ if(isset($_POST['action']) &&
         $frase = "Loli Neko";
         $frase_secreta = str_shuffle($frase);
         $token = substr($frase_secreta,0,10);
-        echo "<p>$token</p>";
-        }else{
-            echo '<p class="text-danger">E-mail não encontrado</p>';
-        }
+        //echo "<p>$token</p>";
+        $sql =$conecta->prepare("UPDATE usuario SET token = ?, tempo_de_vida = DATE_ADD(NOW(), INTERVAL 1 MINUTE) WHERE email = ?");
+        $sql->bind_param("ss", $token, $emailSenha);
+        $sql->execute();
+        //echo "Token gravado no BD";
+        //criação do Link para gerar nova senha
+        $link = "<a herf=\"gerar_senha.php?token=$token\">Clique aqui para gerar uma nova senha</a>";
+        echo $link;
+    }else{
+        echo '<p class="text-danger">E-mail não encontrado</p>';
+    }
 
 }else if(isset($_POST['action']) &&
     $_POST['action'] == 'login'){
